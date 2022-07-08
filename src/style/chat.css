@@ -1,0 +1,30 @@
+.main_div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 30px;
+    padding: 20px;
+    background-color: #242526;
+    border-bottom: 1px solid red;
+}
+
+nav a{
+    margin: 0px;
+    color: white;
+    text-decoration: none;
+}
+
+.sec_div{
+    justify-content: space-between;
+}
+
+nav div a{
+    margin-right: 20px;
+}
+
+.error_div{
+    color: red;
+    text-align: center;
+    margin: 0px;
+    margin-bottom: 10px;
+}
