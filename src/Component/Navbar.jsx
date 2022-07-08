@@ -23,7 +23,10 @@ export  const Chat = () => {
     return(
         <nav className="main_div">
             <h3 id="Messenger">
-             <Link to={"/messenger"}>Messenger</Link> 
+             <Link to={"/"}>
+                Messenger
+                
+                </Link> 
             </h3>
 
             <div className="sec_div">   
