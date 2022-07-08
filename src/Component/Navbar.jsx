@@ -5,16 +5,19 @@ import { db , auth } from "../firebase";
 import {signOut} from "firebase/auth"
 import {updateDoc,doc} from "firebase/firestore"
 import { AuthContext } from "../context/auth";
+import { useNavigate } from "react-router-dom";
 
 
 export  const Chat = () => {
 
+        const Navigate = useNavigate()
     // const {user} = useContext(AuthContext);
     const handelSignOut = async () => {
         await updateDoc(doc(db , "users" , auth.currentUser.uid ), {
             isOnline : false,
         });
         await signOut(auth);
+        Navigate("/login")
     }
 
     return(
