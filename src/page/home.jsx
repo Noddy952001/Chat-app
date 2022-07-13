@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, onSnapshot, query, Timestamp, where } from "firebase/firestore";
+import { addDoc, collection, doc, onSnapshot, query, Timestamp, where  , orderBy} from "firebase/firestore";
 import React,{useEffect} from "react";
 import { useState } from "react";
 import { auth, db , storage} from "../firebase";
@@ -6,6 +6,7 @@ import {User} from "../Component/user"
 import "../style/home.css"
 import {Message} from "../Component/messageForm"
 import { ref , getDownloadURL , uploadBytes } from "firebase/storage"
+import {UserMsg} from "../Component/messages"
 
 export const Home = () => {
 
@@ -13,7 +14,8 @@ export const Home = () => {
     const [chat , setChat] = useState("")
     const [text , setText] = useState("")
     const [img , setImage] = useState("")
-
+    const [msgs , setMsgs] = useState([])
+ 
     const user1 = auth.currentUser.uid
 
     useEffect(() => {
@@ -41,7 +43,17 @@ export const Home = () => {
         const id = user1 > user2 ? `${user1+user2}` : `${user2+user1}`;
 
         const msgRef = collection(db, "message" , id, "chat")
-    }
+        const q = query(msgRef ,orderBy("createdAt" , "asc"))
+
+        onSnapshot(q , querySnapshot => {
+            let msgs =[]
+            querySnapshot.forEach(doc => {
+                msgs.push(doc.data())
+            })
+            setMsgs(msgs)
+        })
+    }   
+    console.log("message" , msgs)
 
     const handelSubmit = async (e) => {
         e.preventDefault()
@@ -53,14 +65,15 @@ export const Home = () => {
         let url;
 
         if(img){
-            const imgRef = ref(storage ,
-                 `images/${new Date().getTime()} - ${img.name}`
-            )
-
+            const imgRef = ref(
+                storage , 
+                `images/${new Date().getTime()} - ${img.name}`
+            );
             const snap = await uploadBytes(imgRef , img)
-            const dlurl = await getDownloadURL(ref(storage) , snap.ref.fullPath)
+            const dlurl = await getDownloadURL(ref(storage , snap.ref.fullPath))
             url = dlurl    
         }
+   
 
         
 
@@ -71,7 +84,6 @@ export const Home = () => {
             createdAt: Timestamp.fromDate(new Date()), 
             media: url || "",
         }); 
-        alert("send")
         setText("")
     }
 
@@ -90,6 +102,10 @@ export const Home = () => {
                                 <h3>
                                     {chat.name}
                                 </h3>
+                            </div>
+
+                            <div className="messages">
+                                {msgs.length ? msgs.map((msg, i) => <UserMsg  key={i}  msg={msg}/>): null}
                             </div>
 
                             <Message  

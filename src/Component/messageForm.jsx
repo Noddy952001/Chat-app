@@ -11,7 +11,7 @@ export const Message = ({handelSubmit , text , setText ,setImage}) => {
                 <Attachment />
             </label>
             <input 
-                onChange={(e) => setImage(e.target.files[0])}
+                onChange={ e => setImage(e.target.files[0])}
                 type="file" 
                 id="img"  
                 accept="image/*"
@@ -23,13 +23,11 @@ export const Message = ({handelSubmit , text , setText ,setImage}) => {
                 <input 
                     type="text" 
                     placeholder="Enter message" 
-                    name="" id=""
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                 />
             </div>
             <button className="btn"
-                 
             >
 
               
