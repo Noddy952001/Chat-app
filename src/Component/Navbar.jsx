@@ -10,8 +10,8 @@ import { useNavigate } from "react-router-dom";
 
 export  const Chat = () => {
 
-        const Navigate = useNavigate()
     // const {user} = useContext(AuthContext);
+    const Navigate = useNavigate()
     const handelSignOut = async () => {
         await updateDoc(doc(db , "users" , auth.currentUser.uid ), {
             isOnline : false,
@@ -23,6 +23,7 @@ export  const Chat = () => {
     return(
         <nav className="main_div">
             <h3 id="Messenger">
+
              <Link to={"/"}>
                 Messenger
                 
@@ -32,7 +33,7 @@ export  const Chat = () => {
             <div className="sec_div">   
                 { auth.currentUser ? (
                     <>
-                        <Link to={"/messenger"}>Profile</Link> 
+                        <Link to={"/profile"}>Profile</Link> 
                         <button
                             onClick={handelSignOut}
                         > 

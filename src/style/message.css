@@ -1,0 +1,28 @@
+.form_message{
+    position: relative;
+    bottom: 0;
+    /* left: 2%; */
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    margin-top: 43%;
+}
+
+.form_message input {
+    width: 70vw;
+    /* width: 10px; */
+    margin: 0px 10px;
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+}
+
+.form_message .btn {
+    height: 40px;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: gray;
+    color: white;
+}
