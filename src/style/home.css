@@ -17,7 +17,10 @@
 
 
  .messages{
-    height: calc(100vh -200px);
+    /* height: calc(100vh -7000px); */
+
+    height: 78%;
     overflow-y: auto;
     border-bottom: 1px solid gray;
+    background-color: red;
  }

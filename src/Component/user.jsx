@@ -3,6 +3,9 @@ import Img from "../vikas.jpg"
 import "../style/user.css"
 
 export const User = ({user ,selectUser}) => {
+
+    
+
     return(
         <div className="user_wrapper"
             onClick={() => selectUser(user)}

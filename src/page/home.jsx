@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, onSnapshot, query, Timestamp, where  , orderBy} from "firebase/firestore";
+import { addDoc, collection,  onSnapshot, query, Timestamp, where  , orderBy} from "firebase/firestore";
 import React,{useEffect} from "react";
 import { useState } from "react";
 import { auth, db , storage} from "../firebase";
@@ -24,36 +24,37 @@ export const Home = () => {
         // query object
 
         const q = query(userRef, where("uid" , "not-in" , [user1]))
-        const unsub = onSnapshot(q, querySnapshot => {
+        const unsub = onSnapshot(q, (querySnapshot) => {
             let users = []
-            querySnapshot.forEach(doc => {
+            querySnapshot.forEach((doc) => {
                 users.push(doc.data())
             })
             setUsers(users)
         })
-
+        return () => unsub();
     },[])
-
-    console.log(users)
-
+    
     const selectUser = (user) => {
-        setChat(user)
-
-        const user2 = user.uid
+        setChat(user);
+        // console.log(user)
+        
+        const user2 = user.uid;
         const id = user1 > user2 ? `${user1+user2}` : `${user2+user1}`;
-
-        const msgRef = collection(db, "message" , id, "chat")
-        const q = query(msgRef ,orderBy("createdAt" , "asc"))
-
-        onSnapshot(q , querySnapshot => {
-            let msgs =[]
-            querySnapshot.forEach(doc => {
+        
+        const msgsRef = collection(db, "message" , id, "chat")
+        const q = query(msgsRef ,orderBy("createdAt" , "asc"))
+        
+        const leat = onSnapshot(q, (querySnapshot) => {
+            let msgs = []
+            querySnapshot.forEach((doc) => {
                 msgs.push(doc.data())
             })
             setMsgs(msgs)
         })
+        return () => leat();
     }   
-    console.log("message" , msgs)
+    console.log(msgs)
+
 
     const handelSubmit = async (e) => {
         e.preventDefault()
@@ -74,9 +75,6 @@ export const Home = () => {
             url = dlurl    
         }
    
-
-        
-
         await addDoc(collection(db , "messages", id , "chat"), {
             text,
             from : user1,
@@ -90,7 +88,7 @@ export const Home = () => {
     return(
         <div className="home_div">
             <div className="users_div">
-                {users.map(user => <User Key={user.uid} user={user} selectUser={selectUser} />)}
+                {users.map((user , i)  => (<User key={i}  Key={user.uid} user={user} selectUser={selectUser}  user1={user1} chat={chat}/>))}
 
             </div>
 
@@ -105,7 +103,12 @@ export const Home = () => {
                             </div>
 
                             <div className="messages">
-                                {msgs.length ? msgs.map((msg, i) => <UserMsg  key={i}  msg={msg}/>): null}
+
+                                {msgs.length 
+                                    ? msgs.map((msg, i) => (
+                                    <UserMsg  key={i}  msg={msg}  user1={user1}/>))
+                                    : "viask"
+                                }
                             </div>
 
                             <Message  
