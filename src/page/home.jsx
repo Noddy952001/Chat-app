@@ -1,4 +1,4 @@
-import { addDoc, collection,  onSnapshot, query, Timestamp, where  , orderBy} from "firebase/firestore";
+import { addDoc, updateDoc,collection,doc, setDoc,getDoc , onSnapshot, query, Timestamp, where  , orderBy} from "firebase/firestore";
 import React,{useEffect} from "react";
 import { useState } from "react";
 import { auth, db , storage} from "../firebase";
@@ -34,7 +34,7 @@ export const Home = () => {
         return () => unsub();
     },[])
     
-    const selectUser = (user) => {
+    const selectUser = async (user) => {
         setChat(user);
         // console.log(user)
         
@@ -51,6 +51,13 @@ export const Home = () => {
             })
             setMsgs(msgs)
         })
+
+        const docsnap =  await getDoc(doc(db , "lastMsg" , id ))
+        if(docsnap.data()?.from !== user1){
+            await updateDoc(doc(db , "lastMsg" , id) , {
+                unread : false
+            })
+        }
     }   
     // console.log(msgs)
 
@@ -79,6 +86,16 @@ export const Home = () => {
             to: user2,
             createdAt: Timestamp.fromDate(new Date()), 
             media: url || "",
+        }); 
+
+
+        await setDoc(doc(db , "lastMsg", id ), {
+            text,
+            from : user1,
+            to: user2,
+            createdAt: Timestamp.fromDate(new Date()), 
+            media: url || "",
+            unread : true,
         }); 
         setText("")
     }

@@ -57,3 +57,12 @@
     color: gray;
     text-align: center;
 }
+
+.unread{
+    margin-left: 10px;
+    background: blue;
+    color: white;
+    padding: 2px 4px;
+    border-radius: 10px;
+
+}
