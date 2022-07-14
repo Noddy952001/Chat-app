@@ -2,14 +2,13 @@
 .msg_wrapper {
     margin-top: 5px;
     padding: 0px 5px;
-
-    background-color: red;
 }
 
 .msg_wrapper img{
     width: 100%;
     border-radius: 5px;
 }
+
 
 .msg_wrapper p{
     padding: 10px;
@@ -20,8 +19,25 @@
     color: white;
 }
 
+.msg_wrapper.own{
+    text-align: right;
+    
+}
+
+
 .msg_wrapper small {
     display: inline-block;
     margin-top: 15px;
-    opacity: 0.8;
+    opacity: 0.4;
+    font-size: 10px;
+}
+
+
+.me {
+    background-color: lightskyblue;
+    color: white;
+}
+
+.friend {
+    background-color: gray;
 }

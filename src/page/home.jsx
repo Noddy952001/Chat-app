@@ -41,20 +41,18 @@ export const Home = () => {
         const user2 = user.uid;
         const id = user1 > user2 ? `${user1+user2}` : `${user2+user1}`;
         
-        const msgsRef = collection(db, "message" , id, "chat")
+        const msgsRef = collection(db, "messages" , id , "chat" )
         const q = query(msgsRef ,orderBy("createdAt" , "asc"))
         
-        const leat = onSnapshot(q, (querySnapshot) => {
+        onSnapshot(q, (querySnapshot) => {
             let msgs = []
             querySnapshot.forEach((doc) => {
                 msgs.push(doc.data())
             })
             setMsgs(msgs)
         })
-        return () => leat();
     }   
-    console.log(msgs)
-
+    // console.log(msgs)
 
     const handelSubmit = async (e) => {
         e.preventDefault()
@@ -107,7 +105,7 @@ export const Home = () => {
                                 {msgs.length 
                                     ? msgs.map((msg, i) => (
                                     <UserMsg  key={i}  msg={msg}  user1={user1}/>))
-                                    : "viask"
+                                    : null
                                 }
                             </div>
 

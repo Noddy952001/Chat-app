@@ -1,15 +1,23 @@
-import React from "react";
+import React, {useRef , useEffect} from "react";
 import Moment from "react-moment"
 import "../style/userMsg.css"
 
 
+
 export const UserMsg = ({msg , user1}) => {
 
-    return(
-        <div className= {`msg_wrapper ${msg.from === user1} `}  >
+    const scroll = useRef();
 
-            <h1>  vikasd</h1>
-            <p>
+    useEffect(() => {
+
+
+        scroll.current?.scrollIntoView({ behavior: "smooth" });
+    },[msg])
+
+    return(
+        <div className= {`msg_wrapper ${msg.from === user1  ? "own" : "" }`} 
+             ref={scroll} >
+            <p className={msg.form === user1 ? "me" : "friend"}>
                 {msg.media ? <img src={msg.media} alt={msg.text} /> : null}
                 {msg.text}
                 <br />
@@ -22,3 +30,4 @@ export const UserMsg = ({msg , user1}) => {
         </div>
     )
 }
+
