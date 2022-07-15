@@ -4,6 +4,9 @@ import "../style/message.css"
  
 export const Message = ({handelSubmit , text , setText ,setImage}) => {
     return(
+
+        
+
         <form className="form_message"
             onSubmit={handelSubmit}
         >

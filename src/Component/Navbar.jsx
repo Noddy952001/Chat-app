@@ -24,7 +24,7 @@ export  const Chat = () => {
         <nav className="main_div">
             <h3 id="Messenger">
 
-             <Link to={"/"}>
+             <Link to={"/message"}>
                 Messenger
                 
                 </Link> 

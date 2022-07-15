@@ -1,3 +1,59 @@
 body{
-    background-color: #262528;
+    background-color: #1a1b25;
+}
+
+@media screen and (max-width : 765) {
+    .home_div{
+        grid-template-columns: 2fr 3fr;
+    }
+
+    .form_message{
+        left: 3%;
+        right: 0;
+    }
+    
+    .msg_wrapper {
+        max-width: 75%;
+    }
+    
+    
+}
+
+
+
+@media screen and (max-width : 560 ) {
+    .home_div{
+        grid-template-columns: 1fr 5fr;
+    }
+
+    .form_message{
+        left: 3%;
+        right: 0;
+    }
+
+    .user_wrapper{
+        display: none;
+    }
+    
+    .sm_cont {
+        padding: 10px 0px;
+        text-align: center;
+        cursor: pointer;
+    }
+    
+    .sc_scren {
+        display: inline-block;
+    }
+
+    .form_message input {
+        width: 50vw;
+        margin: 0px 10px;
+    }
+
+
+    .msg_wrapper {
+        max-width: 100%;
+    }
+    
+    
 }

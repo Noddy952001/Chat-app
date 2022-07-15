@@ -9,6 +9,8 @@ import AuthProvider from './context/auth'
 import { PrivateRoute } from './Component/privateRoute'
 import {AuthContext} from "./context/auth"
 import {Profile} from "./page/profile"
+
+
 function App() {
   const {user} = useContext(AuthContext)
 
@@ -17,7 +19,7 @@ function App() {
         <AuthProvider>
             <Chat/> 
             <Routes>
-              <Route path='/' element={<Home/>} />
+              <Route path='/message' element={<Home/>} />
               <Route path='/register' element={<Register/>} />
               <Route path='/login' element={<Login/>} />
               <Route path='/profile' element={<Profile/>} />
